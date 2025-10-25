@@ -1,0 +1,33 @@
+# Maintainer: Chaitanya Yeleti <chaitanyachowdary125@live.com>
+pkgname=hashsum
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Fast, parallel hashing utility supporting MD5, SHA-1, SHA-256, SHA-512, and BLAKE3"
+arch=('x86_64' 'aarch64')
+url="https://github.com/chaitanyayeleti/hashsum"
+license=('MIT' 'Apache')
+depends=()
+makedepends=('rust' 'cargo')
+provides=('hashsum')
+conflicts=('hashsum-git')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/chaitanyayeleti/hashsum/archive/v${pkgver}.tar.gz")
+sha256sums=('d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --release --locked --features progress,archives
+}
+
+check() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  cargo test --release --locked --features progress,archives || true
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  install -Dm755 "target/release/hashsum" "${pkgdir}/usr/bin/hashsum"
+  install -Dm644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-MIT"
+  install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
