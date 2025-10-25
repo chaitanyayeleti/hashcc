@@ -16,7 +16,15 @@ walkdir = "2.5"
 hex = "0.4"
 rayon = "1.10"
 memmap2 = "0.9"
-crossbeam = "0.8"
-indicatif = "0.17"
 globset = "0.4"
-colored = "2.0"
+
+# Optional deps
+indicatif = { version = "0.17", optional = true }
+zip = { version = "0.6", default-features = false, features = ["deflate"], optional = true }
+tar = { version = "0.4", optional = true }
+flate2 = { version = "1.0", optional = true }
+
+[features]
+default = []
+progress = ["dep:indicatif"]
+archives = ["dep:zip", "dep:tar", "dep:flate2"]
