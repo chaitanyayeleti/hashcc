@@ -1,11 +1,11 @@
 # Maintainer: You <you@example.com>
-_pkgname=hashsum
+_pkgname=hashcc
 pkgname=${_pkgname}
 pkgver=0.1.0
 pkgrel=1
 pkgdesc="Generate, compare, verify file hashes (SHA*, BLAKE3) with parallelism and sumfile compatibility"
 arch=('x86_64' 'aarch64')
-url="https://example.com/${_pkgname}"
+url="https://github.com/chaitanyayeleti/hashcc"
 license=('custom')
 provides=(${_pkgname})
 conflicts=(${_pkgname}-git)

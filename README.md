@@ -1,4 +1,4 @@
-# hashsum
+# hashcc
 
 A fast, parallel hashing utility for Linux supporting multiple algorithms with security features and ecosystem compatibility.
 
@@ -21,22 +21,22 @@ A fast, parallel hashing utility for Linux supporting multiple algorithms with s
 
 ### Arch Linux (AUR)
 ```bash
-yay -S hashsum-git
+yay -S hashcc-git
 # or
-paru -S hashsum-git
+paru -S hashcc-git
 ```
 
 ### From source
 ```bash
-cargo install --git https://github.com/chaitanyayeleti/hashsum --features progress,archives
+cargo install --git https://github.com/chaitanyayeleti/hashcc --features progress,archives
 ```
 
 ### Build locally
 ```bash
-git clone https://github.com/chaitanyayeleti/hashsum
-cd hashsum
+git clone https://github.com/chaitanyayeleti/hashcc
+cd hashcc
 cargo build --release --features progress,archives
-sudo install -Dm755 target/release/hashsum /usr/local/bin/hashsum
+sudo install -Dm755 target/release/hashcc /usr/local/bin/hashcc
 ```
 
 ## Usage
@@ -44,33 +44,33 @@ sudo install -Dm755 target/release/hashsum /usr/local/bin/hashsum
 ### Generate hashes
 ```bash
 # Single file (SHA-256 default)
-hashsum generate /path/to/file
+hashcc generate /path/to/file
 
 # Directory with CSV output
-hashsum generate --format csv /path/to/dir > checksums.csv
+hashcc generate --format csv /path/to/dir > checksums.csv
 
 # With progress and archive support
-hashsum generate --progress --archives --format json /path/to/dir
+hashcc generate --progress --archives --format json /path/to/dir
 
 # Exclude patterns
-hashsum generate --exclude '**/*.tmp' --exclude 'node_modules/**' /path/to/dir
+hashcc generate --exclude '**/*.tmp' --exclude 'node_modules/**' /path/to/dir
 
 # stdin
-echo -n 'hello' | hashsum generate --algo blake3
+echo -n 'hello' | hashcc generate --algo blake3
 ```
 
 ### Verify hashes
 ```bash
 # Verify CSV
-hashsum verify checksums.csv --algo sha256 --base-dir /path/to/dir
+hashcc verify checksums.csv --algo sha256 --base-dir /path/to/dir
 
 # Verify sha256sum-style sumfile
-hashsum verify SHA256SUMS --sumfile --algo sha256 --base-dir /path/to/dir
+hashcc verify SHA256SUMS --sumfile --algo sha256 --base-dir /path/to/dir
 ```
 
 ### Compare hash
 ```bash
-hashsum compare <EXPECTED_HASH> /path/to/file --algo sha256
+hashcc compare <EXPECTED_HASH> /path/to/file --algo sha256
 ```
 
 ## Output Formats
@@ -102,16 +102,16 @@ cargo build --release --features progress,archives
 Generate and verify workflow:
 ```bash
 # Generate checksums
-hashsum generate --format sumfile /data > SHA256SUMS
+hashcc generate --format sumfile /data > SHA256SUMS
 
 # Later, verify
-hashsum verify SHA256SUMS --sumfile --base-dir /data
+hashcc verify SHA256SUMS --sumfile --base-dir /data
 ```
 
 Archive hashing:
 ```bash
 # Hash contents of archives
-hashsum generate --archives --format json /backups
+hashcc generate --archives --format json /backups
 # Output includes virtual paths like: backup.tar.gz!/inner/file.txt
 ```
 

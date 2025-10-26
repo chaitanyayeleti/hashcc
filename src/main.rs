@@ -19,11 +19,11 @@ use globset::{Glob, GlobSetBuilder};
 
 #[derive(Parser)]
 #[command(
-    name = "hashsum",
+    name = "hashcc",
     version,
     about = "Generate, compare, and verify file hashes",
     long_about = "A fast, parallel hashing utility supporting MD5, SHA-1, SHA-256, SHA-512, and BLAKE3.\n\n• Generate hashes for files/dirs or stdin\n• Compare a file to a given hash\n• Verify a CSV of computed hashes",
-    after_help = "EXAMPLES:\n  # Hash a single file (SHA-256 default)\n  hashsum generate /path/to/file\n\n  # Hash a directory (CSV output) and verify later\n  hashsum generate --format csv /path/to/dir > checksums.csv\n  hashsum verify checksums.csv --algo sha256\n\n  # Read from stdin and hash with blake3\n  echo -n 'hello' | hashsum generate --algo blake3\n\n  # Compare a file to a known hash\n  hashsum compare --algo sha512 <HASH> /path/to/file\n\n  # Exclude patterns when hashing a directory\n  hashsum generate --exclude '**/*.tmp' --exclude 'node_modules/**' /path/to/dir"
+    after_help = "EXAMPLES:\n  # Hash a single file (SHA-256 default)\n  hashcc generate /path/to/file\n\n  # Hash a directory (CSV output) and verify later\n  hashcc generate --format csv /path/to/dir > checksums.csv\n  hashcc verify checksums.csv --algo sha256\n\n  # Read from stdin and hash with blake3\n  echo -n 'hello' | hashcc generate --algo blake3\n\n  # Compare a file to a known hash\n  hashcc compare --algo sha512 <HASH> /path/to/file\n\n  # Exclude patterns when hashing a directory\n  hashcc generate --exclude '**/*.tmp' --exclude 'node_modules/**' /path/to/dir"
 )]
 struct Cli {
     #[command(subcommand)]
